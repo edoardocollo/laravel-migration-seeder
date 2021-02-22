@@ -23,6 +23,12 @@
       <p>Prodotto id: {{$prodotto->id}}</p>
       <a href="{{route('prodotti.show', $prodotto)}}">show</a>
       <a href="{{route('prodotti.edit', $prodotto)}}">edit</a>
+      <form class="" action="{{route('prodotti.destroy', $prodotto)}}" method="post">
+        @csrf
+        @method('delete')
+
+        <button type="submit" class="btn btn-success">delete</button>
+      </form>
     @endforeach
 
 
