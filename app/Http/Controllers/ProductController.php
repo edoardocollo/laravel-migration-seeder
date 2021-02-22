@@ -14,7 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        dd('ciao');
+        $prodotti = Product::all();
+        return view('product.index', compact('prodotti'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.create');
     }
 
     /**
@@ -35,7 +36,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $prodotto = new Product;
+        $prodotto->titolo = $request->titolo;
+        $prodotto->descrizione = $request->descrizione;
+        $prodotto->prezzo = $request->prezzo;
+        $prodotto->disponibilita = true;
+        $prodotto->save();
+        return redirect()->route('prodotti.index');
+
+
     }
 
     /**
