@@ -39,5 +39,13 @@ class CategorySeeder extends Seeder
         $newCategory->descrizione = $category['descrizione'];
         $newCategory->save();
       }
+      $categories = config('categories');
+      foreach ($categories as $category) {
+        $newCategory = new Category;
+        $newCategory->categoria = $category['categoria'];
+        $newCategory->descrizione = $category['descrizione'];
+        $newCategory->save();
+      }
+
     }
 }
