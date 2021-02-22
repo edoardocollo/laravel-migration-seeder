@@ -3,19 +3,46 @@
 
 
 
-<a href="{{route('prodotti.create')}}">crea prodotto</a>
 
-@foreach ($prodotti as $prodotto)
-  <h2>{{$prodotto->titolo}}</h2>
-  <p>{{$prodotto->descrizione}}</p>
-  <span>{{$prodotto->prezzo}}</span>
-  <p>Prodotto id: {{$prodotto->id}}</p>
-  <a href="{{route('prodotti.show', $prodotto)}}">show</a>
-  <a href="{{route('prodotti.edit', $prodotto)}}">edit</a>
-  <form class="" action="{{route('prodotti.destroy', $prodotto)}}" method="post">
-    @csrf
-    @method('delete')
 
-    <button type="submit" class="btn btn-success">delete</button>
-  </form>
-@endforeach
+
+<button class="btn btn-success" type="button" name="button">
+  <a href="{{route('prodotti.create')}}">aggiungi prodotto</a>
+</button>
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>id</th>
+    <th>prodotto</th>
+    <th>descrizione</th>
+    <th>prezzo</th>
+    <th>creato</th>
+    <th>modificato</th>
+  </tr>
+</thead>
+<tbody>
+  @foreach ($prodotti as $prodotto)
+    <tr>
+      <td>{{$prodotto->id}}</td>
+      <td>{{$prodotto->titolo}}</td>
+      <td>{{$prodotto->descrizione}}</td>
+      <td>{{$prodotto->prezzo}}</td>
+      <td>{{$prodotto->created_at}}</td>
+      <td>{{$prodotto->updated_at}}</td>
+      <td>
+        <form action="{{route('prodotti.destroy', $prodotto)}}" method="post">
+          @csrf
+          @method('delete')
+         <button type="submit" class="btn btn-success">delete</button>
+        </form>
+        <form action="{{route('prodotti.edit', $prodotto)}}" method="get">
+          @csrf
+         <button type="submit" class="btn btn-success">edit</button>
+        </form>
+        <form action="{{route('prodotti.show', $prodotto)}}" method="get">
+          @csrf
+         <button type="submit" class="btn btn-success">show</button>
+      </td>
+    </tr>
+  @endforeach
+</tbody>
