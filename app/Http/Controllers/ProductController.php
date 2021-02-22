@@ -53,9 +53,11 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show( $product)
     {
-        //
+      $prodotto = Product::find($product);
+      
+      return view ('product.show', compact('prodotto'));
     }
 
     /**
@@ -66,7 +68,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        dd('ciao');
     }
 
     /**
