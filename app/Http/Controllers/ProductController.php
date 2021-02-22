@@ -53,10 +53,10 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show( $product)
+    public function show($product)
     {
       $prodotto = Product::find($product);
-      
+
       return view ('product.show', compact('prodotto'));
     }
 
@@ -66,9 +66,12 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($product)
     {
-        dd('ciao');
+      // dd('ciao');
+      $prodotto = Product::find($product);
+      return view ('product.edit', compact('prodotto'));
+
     }
 
     /**
@@ -78,9 +81,16 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request,  $product)
     {
-        //
+
+        $prodotto = Product::find($product);
+        $prodotto->titolo = $request->titolo;
+        $prodotto->descrizione = $request->descrizione;
+        $prodotto->prezzo = $request->prezzo;
+        $prodotto->update();
+        return redirect()->route('prodotti.index');
+
     }
 
     /**
