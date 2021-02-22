@@ -14,7 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categorie = Category::all();
+        return view('category.index', compact('categorie'));
     }
 
     /**
@@ -24,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+      return view('category.create');
     }
 
     /**
@@ -35,7 +36,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $request->validate([
+        'categoria' => 'required|max:255',
+        'descrizione' => 'required',
+      ]);
+
+        $categoria = new Category;
+        $categoria->categoria = $request->categoria;
+        $categoria->descrizione = $request->descrizione;
+        $categoria->save();
+        return redirect()->route('categorie.index');
     }
 
     /**
@@ -44,9 +54,10 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($category)
     {
-        //
+        $categoria = Category::find($category);
+        return view('category.show', compact('categoria'));
     }
 
     /**
@@ -55,9 +66,10 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($category)
     {
-        //
+      $categoria = Category::find($category);
+      return view('category.edit', compact('categoria'));
     }
 
     /**
@@ -67,9 +79,18 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $category)
     {
-        //
+        $request->validate([
+          'categoria' => 'required|max:255',
+          'descrizione' => 'required',
+        ]);
+
+        $categoria = Category::find($category);
+        $categoria->categoria = $request->categoria;
+        $categoria->descrizione = $request->descrizione;
+        $categoria->update();
+        return redirect()->route('categorie.index');
     }
 
     /**
@@ -78,8 +99,10 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy( $category)
     {
-        //
+      $categoria = Category::find($category);
+      $categoria->delete();
+      return redirect()->route('categorie.index');
     }
 }

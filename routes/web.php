@@ -20,3 +20,4 @@ Route::get('about', function () {
     return view('about');
 })->name('about');
 Route::resource('prodotti', 'ProductController');
+Route::resource('categorie', 'CategoryController');

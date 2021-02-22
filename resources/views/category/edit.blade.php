@@ -1,0 +1,13 @@
+@extends('layout.main')
+@section('titolo_head')
+  categorie
+@endsection
+@section('titolo')
+  categorie
+@endsection
+@section('nav')
+  @include('layout.nav')
+@endsection
+@section('main')
+  @include('layout.edit_category')
+@endsection
